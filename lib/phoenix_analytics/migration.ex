@@ -11,14 +11,14 @@ defmodule PhoenixAnalytics.Migration do
 
   def up do
     {:ok, db} = open_duckdb()
-    {:ok, conn} = Duckdbex.connection(db)
+    IO.inspect db, label: "Db"
 
+    {:ok, conn} = Duckdbex.connection(db)
     IO.inspect conn, label: "Connection"
 
     Bridge.attach_postgres(db, conn)
 
     query = Queries.Table.create_requests()
-
     IO.inspect query, label: "Query"
 
     case Duckdbex.query(conn, query) do

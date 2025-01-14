@@ -214,7 +214,7 @@ defmodule PhoenixAnalytics.Repo do
   def insert_many(batch) do
     case get_connection() do
       {:ok, conection} ->
-        if Utility.mode() == :duck_postgres do
+        if Enum.member?([:postgres_only, :duck_postgres], Utility.mode()) do
           {query, params} = Queries.Insert.insert_many(batch)
 
           {:ok, stmt_ref} = Duckdbex.prepare_statement(conection, query)

@@ -35,9 +35,4 @@ defmodule PhoenixAnalytics.Queries.Table do
 
     query
   end
-
-  def attach_postgres do
-    postgres_conn = Application.fetch_env!(:phoenix_analytics, :postgres_conn)
-    "ATTACH '#{postgres_conn}' AS #{@db_alias} (TYPE POSTGRES);"
-  end
 end

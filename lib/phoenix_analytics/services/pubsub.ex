@@ -90,6 +90,7 @@ defmodule PhoenixAnalytics.Services.PubSub do
   def broadcast(event) do
     case Utility.mode() do
       :duck_postgres -> PubSub.local_broadcast(@pubsub, @topic, {:request_sent, event})
+      :postgres_only -> PubSub.local_broadcast(@pubsub, @topic, {:request_sent, event})
       _ -> PubSub.broadcast(@pubsub, @topic, {:request_sent, event})
     end
   end

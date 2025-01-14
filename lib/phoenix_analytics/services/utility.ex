@@ -107,11 +107,13 @@ defmodule PhoenixAnalytics.Services.Utility do
     duckdb_in_memory = Application.fetch_env(:phoenix_analytics, :in_memory)
     postgre_repo = Application.fetch_env(:phoenix_analytics, :postgres_conn)
 
-    cond do
+    mode = cond do
       duckdb_path != :error and postgre_repo == :error -> :duck_only
       duckdb_path != :error and postgre_repo != :error -> :duck_postgres
-      duckdb_in_memory != :error and postgre_repo != :error -> :duck_postgres
+      duckdb_in_memory != :error and postgre_repo != :error -> :postgres_only
       true -> :duck_only
     end
+
+    IO.inspect mode
   end
 end

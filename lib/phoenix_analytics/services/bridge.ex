@@ -19,7 +19,7 @@ defmodule PhoenixAnalytics.Services.Bridge do
 
   """
   def attach_postgres(db, conn) do
-    if Enum.member?([:postgres_only, :duck_postgres], Utility.mode()) do
+    if Utility.mode() == :duck_postgres do
       Duckdbex.query(conn, "INSTALL postgres;")
       Duckdbex.query(conn, "LOAD postgres;")
 
